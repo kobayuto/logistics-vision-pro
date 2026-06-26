@@ -13,6 +13,7 @@
     kobayuto/logistics-vision-pro            → 公開リリース用リポジトリ (例: kobayuto/logistics-vision-pro)
     LogisticsVisionPro-Windows-Setup.exe → リリースに添付する「固定名」インストーラ(リリースWFで付与)
   Google Fonts(CDN)はWebサイトなので利用可(アプリのno-network制約とは別)。
+  バイリンガル: ナビの言語トグル(日本語/English)。本文は data-i18n + 末尾スクリプトで切替。
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +41,12 @@
   .btn:hover{transform:translate(-2px,-2px); box-shadow:var(--shadow-hard);}
   .btn.ghost{background:var(--paper); border-color:#D1D5DB; color:var(--ink-soft); min-height:52px; font-size:13.5px;}
   .btn.ghost:hover{box-shadow:4px 4px 0 #D1D5DB; border-color:var(--ink);}
+
+  /* language switch (JA / EN) */
+  .langsw{display:inline-flex; border:1px solid #D1D5DB; border-radius:999px; overflow:hidden; background:#fff;}
+  .langsw button{appearance:none; border:0; background:transparent; cursor:pointer; font:700 12px var(--mono); padding:7px 12px; color:var(--muted); transition:background .12s ease,color .12s ease;}
+  .langsw button + button{border-left:1px solid var(--line);}
+  .langsw button.on{background:var(--ink); color:var(--yellow);}
 
   header.nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.4) blur(10px); background:rgba(255,252,232,.8); border-bottom:1px solid var(--line);}
   .nav-in{display:flex; align-items:center; gap:14px; height:62px;}
@@ -102,20 +109,24 @@
 <header class="nav"><div class="wrap nav-in">
   <div class="brand"><span class="logo">LVP</span><span>Logistics Vision Pro<small>WAREHOUSE ANALYTICS · WINDOWS</small></span></div>
   <span class="nav-spacer"></span>
-  <a class="btn ghost" href="https://github.com/kobayuto/logistics-vision-pro/releases" target="_blank" rel="noopener">リリース一覧</a>
+  <div class="langsw" role="group" aria-label="Language / 言語">
+    <button type="button" data-lang="ja" aria-pressed="true">日本語</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+  <a class="btn ghost" href="https://github.com/kobayuto/logistics-vision-pro/releases" target="_blank" rel="noopener" data-i18n="nav.releases">リリース一覧</a>
 </div></header>
 
 <main>
 <section class="hero"><div class="wrap hero-grid">
   <div>
-    <span class="eyebrow">WINDOWS版 · ローカル完結 · インストールにGitHubアカウント不要</span>
-    <h1 class="head">倉庫を、<span class="mk">ローカルで</span>見える化する。<span class="sub">Logistics Vision Pro for Windows</span></h1>
-    <p class="lead">ローカルのExcel/CSVから、倉庫の<b>レイアウト・動線（ピッキングフロー）・ABC・在庫適合</b>をオフラインで分析。GAS版と<b>同じ画面・同じ結果</b>を、インターネット不要のWindowsデスクトップアプリで。</p>
+    <span class="eyebrow" data-i18n="hero.eyebrow">WINDOWS版 · ローカル完結 · インストールにGitHubアカウント不要</span>
+    <h1 class="head" data-i18n="hero.h1">倉庫を、<span class="mk">ローカルで</span>見える化する。<span class="sub">Logistics Vision Pro for Windows</span></h1>
+    <p class="lead" data-i18n="hero.lead">ローカルのExcel/CSVから、倉庫の<b>レイアウト・動線（ピッキングフロー）・ABC・在庫適合</b>をオフラインで分析。GAS版と<b>同じ画面・同じ結果</b>を、インターネット不要のWindowsデスクトップアプリで。</p>
     <div class="hero-cta">
-      <a class="btn" href="https://github.com/kobayuto/logistics-vision-pro/releases/latest/download/LogisticsVisionPro-Windows-Setup.exe">⬇ ダウンロード（Windows）</a>
-      <a class="btn ghost" href="#install">インストール手順</a>
+      <a class="btn" href="https://github.com/kobayuto/logistics-vision-pro/releases/latest/download/LogisticsVisionPro-Windows-Setup.exe" data-i18n="hero.dl">⬇ ダウンロード（Windows）</a>
+      <a class="btn ghost" href="#install" data-i18n="hero.howto">インストール手順</a>
     </div>
-    <p class="hero-note"><b>Windows 10 / 11 (x64)</b> ・ インターネット不要 ・ アカウント不要 ・ 無料</p>
+    <p class="hero-note" data-i18n="hero.note"><b>Windows 10 / 11 (x64)</b> ・ インターネット不要 ・ アカウント不要 ・ 無料</p>
   </div>
   <div class="hero-visual"><div class="panel">
     <div class="panel-bar"><span class="dot y"></span><span class="dot"></span><span class="dot"></span><span class="ttl">layout / heatmap</span><span class="tag">LOCAL</span></div>
@@ -126,32 +137,32 @@
 
 <section id="install"><div class="wrap">
   <p class="sec-h">Install</p>
-  <h2>インストール手順</h2>
+  <h2 data-i18n="install.h2">インストール手順</h2>
   <div class="steps">
-    <div class="step"><span class="num">1</span><div><h3>ダウンロード</h3><p>上の「ダウンロード」から <span class="kbd">…-Setup.exe</span> を取得し、実行します。</p></div></div>
-    <div class="step"><span class="num">2</span><div><h3>SmartScreen警告が出たら</h3><p>「<b>WindowsによってPCが保護されました</b>」が表示されたら、<span class="kbd">詳細情報</span> をクリック → <span class="kbd">実行</span> を選びます。<br><span style="color:var(--muted);font-size:12.5px">※ 署名前のため警告が出ますが、このアプリは外部に一切通信しません。</span></p></div></div>
-    <div class="step"><span class="num">3</span><div><h3>起動して使う</h3><p>インストール後にアプリを起動 → <b>ワークスペースフォルダ</b>（データ/設定を置く場所）を選択すれば準備完了です。</p></div></div>
+    <div class="step"><span class="num">1</span><div><h3 data-i18n="s1.h">ダウンロード</h3><p data-i18n="s1.p">上の「ダウンロード」から <span class="kbd">…-Setup.exe</span> を取得し、実行します。</p></div></div>
+    <div class="step"><span class="num">2</span><div><h3 data-i18n="s2.h">SmartScreen警告が出たら</h3><p data-i18n="s2.p">「<b>WindowsによってPCが保護されました</b>」が表示されたら、<span class="kbd">詳細情報</span> をクリック → <span class="kbd">実行</span> を選びます。<br><span style="color:var(--muted);font-size:12.5px">※ 署名前のため警告が出ますが、このアプリは外部に一切通信しません。</span></p></div></div>
+    <div class="step"><span class="num">3</span><div><h3 data-i18n="s3.h">起動して使う</h3><p data-i18n="s3.p">インストール後にアプリを起動 → <b>ワークスペースフォルダ</b>（データ/設定を置く場所）を選択すれば準備完了です。</p></div></div>
   </div>
-  <div class="callout"><b>なぜ警告？</b> 配布コストを抑えるためコード署名をしていないためです（既知・想定内）。インストーラはWebView2を同梱しており、<b>インターネットの無いPCでも</b>動作します。アプリは外部送信を行いません。</div>
+  <div class="callout" data-i18n="install.callout"><b>なぜ警告？</b> 配布コストを抑えるためコード署名をしていないためです（既知・想定内）。インストーラはWebView2を同梱しており、<b>インターネットの無いPCでも</b>動作します。アプリは外部送信を行いません。</div>
 </div></section>
 
 <section><div class="wrap">
   <p class="sec-h">Features</p>
-  <h2>GAS版と同一エンジン。ローカルでそのまま。</h2>
+  <h2 data-i18n="feat.h2">GAS版と同一エンジン。ローカルでそのまま。</h2>
   <div class="feat">
-    <div class="card"><div class="ic">🗺️</div><h3>レイアウト可視化</h3><p>ロケコードから倉庫フロアマップを生成。ゾーン・通路・段/間口まで再現。</p></div>
-    <div class="card"><div class="ic">🚶</div><h3>ピッキング動線</h3><p>実績からピッカー動線・混雑を可視化。通路ネットワーク上で経路計算。</p></div>
-    <div class="card"><div class="ic">📊</div><h3>ABC / 在庫適合</h3><p>出荷からABC（SABC/ABCD）、在庫の占有・適合をゾーン別に分析。</p></div>
-    <div class="card"><div class="ic">🔁</div><h3>在庫移動分析</h3><p>移動実績からペア・ゾーン間移動を集計。</p></div>
-    <div class="card"><div class="ic">🔎</div><h3>在庫検索</h3><p>品番/品名でロケ横断検索し、該当ロケをマップ上でハイライト。</p></div>
-    <div class="card"><div class="ic">🔒</div><h3>互換検証済み</h3><p>解析エンジンはGAS版とゴールデン照合で一致を機械検証。結果は同一。</p></div>
+    <div class="card"><div class="ic">🗺️</div><h3 data-i18n="c1.h">レイアウト可視化</h3><p data-i18n="c1.p">ロケコードから倉庫フロアマップを生成。ゾーン・通路・段/間口まで再現。</p></div>
+    <div class="card"><div class="ic">🚶</div><h3 data-i18n="c2.h">ピッキング動線</h3><p data-i18n="c2.p">実績からピッカー動線・混雑を可視化。通路ネットワーク上で経路計算。</p></div>
+    <div class="card"><div class="ic">📊</div><h3 data-i18n="c3.h">ABC / 在庫適合</h3><p data-i18n="c3.p">出荷からABC（SABC/ABCD）、在庫の占有・適合をゾーン別に分析。</p></div>
+    <div class="card"><div class="ic">🔁</div><h3 data-i18n="c4.h">在庫移動分析</h3><p data-i18n="c4.p">移動実績からペア・ゾーン間移動を集計。</p></div>
+    <div class="card"><div class="ic">🔎</div><h3 data-i18n="c5.h">在庫検索</h3><p data-i18n="c5.p">品番/品名でロケ横断検索し、該当ロケをマップ上でハイライト。</p></div>
+    <div class="card"><div class="ic">🔒</div><h3 data-i18n="c6.h">互換検証済み</h3><p data-i18n="c6.p">解析エンジンはGAS版とゴールデン照合で一致を機械検証。結果は同一。</p></div>
   </div>
   <div class="reqs">
     <span class="pill"><span class="d">✓</span> Windows 10 / 11 (x64)</span>
-    <span class="pill"><span class="d">✓</span> インターネット不要</span>
-    <span class="pill"><span class="d">✓</span> GitHubアカウント不要</span>
-    <span class="pill"><span class="d">✓</span> 無料</span>
-    <span class="pill"><span class="d">✓</span> データはローカル（外部送信なし）</span>
+    <span class="pill"><span class="d">✓</span> <span data-i18n="req.net">インターネット不要</span></span>
+    <span class="pill"><span class="d">✓</span> <span data-i18n="req.acct">GitHubアカウント不要</span></span>
+    <span class="pill"><span class="d">✓</span> <span data-i18n="req.free">無料</span></span>
+    <span class="pill"><span class="d">✓</span> <span data-i18n="req.local">データはローカル（外部送信なし）</span></span>
   </div>
 </div></section>
 </main>
@@ -170,6 +181,82 @@
     for(var i=0;i<54;i++){var c=document.createElement('div');c.className='cell';
       c.style.background=ramp[Math.floor(Math.random()*ramp.length)];
       c.style.animationDelay=(Math.random()*3).toFixed(2)+'s';heat.appendChild(c);}
+  })();
+
+  // bilingual toggle (日本語 / English). JA stays the in-DOM default (also what
+  // search engines and JS-disabled visitors see); EN strings live here and are
+  // swapped in on demand. First visit picks language from the browser; the
+  // choice is remembered in localStorage.
+  (function(){
+    var EN = {
+      "nav.releases": "Releases",
+      "hero.eyebrow": "WINDOWS · FULLY LOCAL · NO GITHUB ACCOUNT NEEDED",
+      "hero.h1": `See your warehouse, <span class="mk">locally</span>.<span class="sub">Logistics Vision Pro for Windows</span>`,
+      "hero.lead": `Analyze your warehouse <b>layout, picking flow, ABC and inventory fit</b> offline — straight from local Excel/CSV files. The <b>same screens and identical results</b> as the cloud edition, in a Windows desktop app that needs no internet.`,
+      "hero.dl": "⬇ Download (Windows)",
+      "hero.howto": "How to install",
+      "hero.note": `<b>Windows 10 / 11 (x64)</b> · No internet · No account · Free`,
+      "install.h2": "How to install",
+      "s1.h": "Download",
+      "s1.p": `Get <span class="kbd">…-Setup.exe</span> from the Download button above and run it.`,
+      "s2.h": "If SmartScreen warns you",
+      "s2.p": `If you see “<b>Windows protected your PC</b>”, click <span class="kbd">More info</span> → <span class="kbd">Run anyway</span>.<br><span style="color:var(--muted);font-size:12.5px">The warning only appears because the installer is unsigned — the app never communicates with any external server.</span>`,
+      "s3.h": "Launch and use",
+      "s3.p": `After installing, open the app and choose a <b>workspace folder</b> (where your data and settings live). That's it — you're ready.`,
+      "install.callout": `<b>Why the warning?</b> The installer isn't code-signed, to keep distribution simple (known and expected). It bundles WebView2 so it runs <b>even on PCs with no internet</b>, and the app never sends data anywhere.`,
+      "feat.h2": "The same engine as the cloud edition — now fully local.",
+      "c1.h": "Layout visualization",
+      "c1.p": "Build a warehouse floor map from location codes — zones, aisles, tiers and bins all reproduced.",
+      "c2.h": "Picking flow",
+      "c2.p": "Visualize picker routes and congestion from actuals, routed over the aisle network.",
+      "c3.h": "ABC / inventory fit",
+      "c3.p": "ABC ranking (SABC/ABCD) from shipments, plus per-zone inventory occupancy and fit.",
+      "c4.h": "Stock movement",
+      "c4.p": "Summarize pair and zone-to-zone movement from transfer records.",
+      "c5.h": "Inventory search",
+      "c5.p": "Search across locations by item code or name and highlight the matches on the map.",
+      "c6.h": "Verified compatible",
+      "c6.p": "The analysis engine is machine-verified against the cloud edition with golden fixtures — identical results.",
+      "req.net": "No internet",
+      "req.acct": "No GitHub account",
+      "req.free": "Free",
+      "req.local": "Data stays local — never sent out"
+    };
+    var META = {
+      title: { en: "Logistics Vision Pro for Windows — See your warehouse, locally." },
+      desc:  { en: "Analyze warehouse layout, picking flow, ABC and inventory fit offline from local Excel/CSV files — a Windows desktop app with the same UI and identical results as the cloud edition. No internet, no GitHub account, free." }
+    };
+    var descEl = document.querySelector('meta[name="description"]');
+    META.title.ja = document.title;
+    META.desc.ja = descEl ? descEl.getAttribute('content') : "";
+    var nodes = document.querySelectorAll('[data-i18n]');
+    nodes.forEach(function(n){ n.__ja = n.innerHTML; });
+    var btns = document.querySelectorAll('.langsw button');
+    function apply(lang){
+      if(lang !== 'en') lang = 'ja';
+      document.documentElement.lang = lang;
+      nodes.forEach(function(n){
+        var k = n.getAttribute('data-i18n');
+        var en = EN[k];
+        n.innerHTML = (lang === 'en' && en != null) ? en : n.__ja;
+      });
+      document.title = META.title[lang] || META.title.ja;
+      if(descEl) descEl.setAttribute('content', META.desc[lang] || META.desc.ja);
+      btns.forEach(function(b){
+        var on = b.getAttribute('data-lang') === lang;
+        b.classList.toggle('on', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      try{ localStorage.setItem('lvp-lang', lang); }catch(e){}
+    }
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+    });
+    // Default to Japanese on first visit; English is opt-in via the toggle.
+    // A previously chosen language is still remembered across visits.
+    var saved = null;
+    try{ saved = localStorage.getItem('lvp-lang'); }catch(e){}
+    apply(saved || 'ja');
   })();
 </script>
 </body>
